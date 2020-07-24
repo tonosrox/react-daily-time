@@ -4,7 +4,10 @@ import DailyTime from './DailyTime';
 
 function App() {
   return (
-    <DailyTime lang="es" onchange={(data)=>{console.log(data)}}/>
+    <div style={{padding:50}}>
+      <DailyTime onchange={(data) => { console.log(data) }} />
+    </div>
+
   );
 }
 
