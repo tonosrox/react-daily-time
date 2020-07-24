@@ -8,14 +8,6 @@ import 'moment/min/locales.min';
 
 const businessTheme = theme;
 const useStyles = makeStyles((theme) => ({
-    success: {
-        backgroundColor: businessTheme.palette.primary.main,
-        color: 'white'
-    }, root: {
-        '&:hover': {
-            backgroundColor: 'transparent',
-        },
-    },
     icon: {
         borderRadius: 3,
         width: businessTheme.size,
@@ -49,8 +41,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-
-
 const INIT_ACTIVE = false;
 const HOURS = new Array(24).fill(INIT_ACTIVE);
 const DAYS = new Array(7).fill(HOURS);
@@ -62,9 +52,8 @@ const getDayAsLocal = (indexDay) => {
 export default function DailyTime(props) {
     const { lang } = props;
     const [data, setData] = useState(DAYS);
-
-
     lang && moment.locale(lang);
+
     const handleChange = (day, hour) => {
         let d = data[day];
         let aux = d.map((item, index) => {
@@ -76,11 +65,7 @@ export default function DailyTime(props) {
         });
         let newdata = [];
         data.forEach((element, index) => {
-            if (index === day) {
-                newdata.push(aux);
-            } else {
-                newdata.push(element);
-            }
+            index===day ? newdata.push(aux):newdata.push(element);
         });
         props.onchange(newdata);
         setData(newdata);
@@ -111,10 +96,6 @@ export default function DailyTime(props) {
             </ThemeProvider>
         </Fragment>
     )
-    /**
-     * Component row for each day
-     * @param {*} props 
-     */
     function DayRow(props) {
         const classes = useStyles();
         return (
@@ -124,6 +105,7 @@ export default function DailyTime(props) {
                     <Grid item xs={11} style={{ margin: 0, pading: 0 }}>
                         {props.data && props.data[props.index].map((element, i) => {
                             return <Checkbox
+                                key={`check${props.indes}_${i}`}
                                 checked={data[props.index][i]}
                                 onChange={() => handleChange(props.index, i)}
                                 icon={<span className={classes.icon} />}
@@ -136,4 +118,3 @@ export default function DailyTime(props) {
         )
     }
 }
-
