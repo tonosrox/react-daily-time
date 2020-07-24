@@ -31,3 +31,4 @@ yarn-error.log*
 /src/logo.svg
 /src/serviceWorker.js
 /src/setupTest.js
+/src/setupTests.js
